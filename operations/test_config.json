@@ -1,0 +1,88 @@
+{
+  "before":
+  {
+    "generate":
+    [
+      {
+        "type": "environment_generator",
+        "arguments":
+        {
+          "templatePath": "/operations/local.neon.template",
+          "destination": "/config/prod.neon"
+        }
+      }
+    ],
+    "move":
+    [
+      {
+        "source": "/operations/.maintenance.php",
+        "destination": "/www/.maintenance.php"
+      },
+      {
+        "source": "/operations/.htaccess_test",
+        "destination": "/.htaccess"
+      }
+    ]
+  },
+  "sync":
+  {
+    "source": "/Users/radek/WorkSpace/PHP/Others/nette-sample",
+    "destination": "",
+    "log_file_dest": "/.deploy/files.log",
+    "ignore_list":
+    [
+      "^/.idea",
+      "^/.deploy",
+      "^/db_data",
+      "^/log",
+      "^/src",
+      "^/temp",
+      "^/node_modules",
+      "^/operations",
+      ".dockerignore",
+      ".gitignore",
+      ".DS_Store",
+      "^/.env",
+      "^/composer.*",
+      "/www/test.html",
+      "^compose.yml",
+      "^composer.json",
+      "^/Dockerfile",
+      "^/tailwind.config.js",
+      "^/.*cjs",
+      "^/.*md",
+      "/config/local.neon"
+    ],
+    "default_file_mode": "775",
+    "default_dir_mode": "0775",
+    "ftp_config":
+    {
+      "host": "136563.w63.wedos.net:21",
+      "user": "{{.FTP_USER}}",
+      "password": "{{.FTP_PASSWORD}}"
+    }
+  },
+  "folders": ["/temp", "/temp/sessions", "/log"],
+  "readable_folders": ["/www"],
+  "after": {
+    "action":
+    [
+      {
+        "type": "http_action",
+        "arguments":
+        {
+          "url": "https://nette-sample.radekbednar.com/system/migrate",
+          "method": "POST",
+          "headers": {
+              "X-Auth": "{{.MIGRATE_TOKEN}}",
+              "X-Migration-Type": "up"
+          }
+        }
+      }
+    ],
+    "clean": {
+      "folders": ["/temp/cache", "/temp/sessions"],
+      "files": ["/www/.maintenance.php"]
+    }
+  }
+}

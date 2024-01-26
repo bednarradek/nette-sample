@@ -1,0 +1,8 @@
+.idea
+db_data
+vendor
+node_modules
+www/dist
+config/local.neon
+.DS_Store
+.env

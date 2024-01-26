@@ -1,0 +1,23 @@
+parameters:
+
+database:
+	dsn: 'mysql:host=%MYSQL_HOST%;dbname=%MYSQL_DATABASE%'
+	user: %MYSQL_USER%
+	password: %MYSQL_PASSWORD%
+
+application:
+	errorPresenter: Error
+	mapping:
+		*: App\*Module\Presenters\*Presenter
+
+latte:
+	strictTypes: yes
+
+session:
+	expiration: 14 days
+	savePath: "%tempDir%/sessions"
+
+di:
+	export:
+		parameters: no
+		tags: no

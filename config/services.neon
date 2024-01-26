@@ -1,0 +1,16 @@
+services:
+	- App\Router\RouterFactory::createRouter
+	- App\Services\MigrationService(
+	    %MIGRATE_TOKEN%,
+	    %MYSQL_HOST%,
+	    %MYSQL_PORT%,
+	    %MYSQL_USER%,
+	    %MYSQL_PASSWORD%,
+	    %MYSQL_DATABASE%,
+	)
+
+search:
+	-	in: %appDir%
+		classes:
+			- *Factory
+			- *Facade

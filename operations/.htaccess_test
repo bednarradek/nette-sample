@@ -1,0 +1,10 @@
+RewriteEngine on
+RewriteCond %{HTTP_HOST} ^nette-sample.radekbednar.com$ [NC,OR]
+RewriteCond %{HTTP_HOST} ^www.nette-sample.radekbednar.com$
+RewriteCond %{REQUEST_URI} !www/
+RewriteRule (.*) /www/$1 [L]
+
+
+#order deny,allow
+#deny from all
+#allow from 213.29.35.72

@@ -1,0 +1,12 @@
+name: Deploy
+run-name: deploy
+on: [push]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run deploy
+        uses: bednarradek/deployer@v0.0.1
+        with:
+          config: ./operations/test_config.json
