@@ -1,17 +1,16 @@
-name: Deploy test
-run-name: deploy test
+name: Deploy
+run-name: deploy
 on:
-  push:
-#  release:
-#    types:
-#      - created
-#    branches:
-#      - '!main'
+  release:
+    types:
+      - created
+    branches:
+      - '!main'
 jobs:
-#  quality:
-#    uses: "./.github/workflows/quality.yml"
+  quality:
+    uses: "./.github/workflows/quality.yml"
   deploy:
-#    needs: [quality]
+    needs: [quality]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -33,6 +32,7 @@ jobs:
           npm run build
 
       - name: Run deploy
+        if: github.ref != 'refs/heads/master'
         uses: bednarradek/deployer@v0.0.3
         env:
           MIGRATE_TOKEN: ${{ secrets.TEST_MIGRATE_TOKEN }}
