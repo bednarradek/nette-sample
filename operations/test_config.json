@@ -8,7 +8,7 @@
         "arguments":
         {
           "templatePath": "/operations/local.neon.template",
-          "destination": "/config/prod.neon"
+          "destination": "/config/local.neon"
         }
       }
     ],
@@ -50,8 +50,7 @@
       "^/Dockerfile",
       "^/tailwind.config.js",
       "^/.*cjs",
-      "^/.*md",
-      "/config/local.neon"
+      "^/.*md"
     ],
     "default_file_mode": "775",
     "default_dir_mode": "0775",

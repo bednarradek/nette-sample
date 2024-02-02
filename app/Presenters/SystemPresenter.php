@@ -32,7 +32,8 @@ final class SystemPresenter extends BasePresenter
      * @throws InvalidMigrationFile
      * @throws OldVersionSchemaException
      */
-    public function actionMigrate(): void {
+    public function actionMigrate(): void
+    {
         try {
             if ($this->getHttpRequest()->getMethod() !== HttpHelper::HTTP_METHOD_POST) {
                 $this->sendCustomResponse(HttpHelper::HTTP_STATUS_METHOD_NOT_ALLOWED, 'Method Not Allowed');
@@ -75,7 +76,8 @@ final class SystemPresenter extends BasePresenter
     /**
      * @throws AbortException
      */
-    private function sendCustomResponse(int $code, string $message): void {
+    private function sendCustomResponse(int $code, string $message): void
+    {
         $this->getHttpResponse()->setCode($code);
 
         $this->sendResponse(new JsonResponse([
