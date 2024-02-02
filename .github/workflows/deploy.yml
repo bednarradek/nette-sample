@@ -9,7 +9,7 @@ jobs:
   quality:
     uses: "./.github/workflows/quality.yml"
   deploy-test:
-    if: ${{ github.ref != 'refs/heads/main' }}
+    if: ${{ contains(github.ref, 'test') }}
     needs: [quality]
     runs-on: ubuntu-latest
     steps:
@@ -45,7 +45,7 @@ jobs:
         with:
           config: ./operations/test_config.json
   deploy-prod:
-    if: ${{ github.ref == 'refs/heads/main' }}
+    if: ${{ contains(github.ref, 'prod') }}
     needs: [ quality ]
     runs-on: ubuntu-latest
     steps:
