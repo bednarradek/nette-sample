@@ -1,0 +1,46 @@
+name: Deploy test
+run-name: deploy test
+on:
+  release:
+    types:
+      - created
+    branches:
+      - '!main'
+jobs:
+  quality:
+    uses: "./.github/workflows/quality.yml"
+  deploy:
+    needs: [quality]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Composer install
+        uses: docker://composer:2.6.6
+        with:
+          args: install
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - run: |
+          npm install
+
+      - run: |
+          npm run build
+
+      - name: Run deploy
+        uses: bednarradek/deployer@v0.0.3
+        env:
+          MIGRATE_TOKEN: ${{ secrets.TEST_MIGRATE_TOKEN }}
+          MYSQL_HOST: ${{ secrets.TEST_MYSQL_HOST }}
+          MYSQL_DATABASE: ${{ secrets.TEST_MYSQL_DATABASE }}
+          MYSQL_USER: ${{ secrets.TEST_MYSQL_USER }}
+          MYSQL_PASSWORD: ${{ secrets.TEST_MYSQL_PASSWORD }}
+          MYSQL_PORT: ${{ secrets.TEST_MYSQL_PORT }}
+          FTP_USER: ${{ secrets.TEST_FTP_USER }}
+          FTP_PASSWORD: ${{ secrets.TEST_FTP_PASSWORD }}
+        with:
+          config: ./operations/test_config.json

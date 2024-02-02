@@ -12,6 +12,8 @@ application:
 
 latte:
 	strictTypes: yes
+	extensions:
+		- App\Extensions\LatteExtension
 
 session:
 	expiration: 14 days

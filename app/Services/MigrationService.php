@@ -12,6 +12,7 @@ use ByJG\DbMigration\Exception\InvalidMigrationFile;
 use ByJG\DbMigration\Exception\OldVersionSchemaException;
 use ByJG\DbMigration\Migration;
 use ByJG\Util\Uri;
+use Nette\Http\IRequest;
 use Nette\Http\Request;
 use Tracy\ILogger;
 
@@ -35,8 +36,7 @@ class MigrationService
         private string $password,
         private string $database,
         private ILogger $logger,
-    )
-    {
+    ) {
         $connectionUri = new Uri(sprintf(
             'mysql://%s:%s@%s:%s/%s',
             $this->user,
@@ -59,7 +59,8 @@ class MigrationService
     /**
      * @throws UnauthorizedException
      */
-    public function auth(Request $request): void {
+    public function auth(IRequest $request): void
+    {
         if ($request->getHeader("X-Auth") !== $this->token) {
             throw new UnauthorizedException();
         }
@@ -68,7 +69,8 @@ class MigrationService
     /**
      * @throws DatabaseDoesNotRegistered
      */
-    public function init(): void {
+    public function init(): void
+    {
         $this->migration->createVersion();
     }
 
@@ -79,7 +81,8 @@ class MigrationService
      * @throws DatabaseIsIncompleteException
      * @throws OldVersionSchemaException
      */
-    public function run($version = null, $type = self::TYPE_UP): void {
+    public function run(int $version = null, string $type = self::TYPE_UP): void
+    {
         if ($type == self::TYPE_UP) {
             $this->migration->update($version);
             return;

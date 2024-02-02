@@ -1,0 +1,42 @@
+name: Quality
+run-name: quality
+on: [push]
+
+jobs:
+  codesniffer:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+
+      - name: Composer install
+        uses: docker://composer:2.6.6
+        with:
+          args: install
+
+      - run: |
+          ./vendor/bin/phpcs --standard=./codesniffer.xml --extensions=php ./app ./www
+
+  phpstan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+
+      - name: Composer install
+        uses: docker://composer:2.6.6
+        with:
+          args: install
+
+      - run: |
+          ./vendor/bin/phpstan analyse -l 6 ./app ./www

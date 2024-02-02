@@ -15,15 +15,16 @@ module.exports = {
     themes: [
       {
         mytheme: {
-          "primary": "#009eff",
-          "secondary": "#5875ff",
-          "accent": "#00b7ff",
-          "neutral": "#281d0f",
-          "base-100": "#24211c",
-          "info": "#22c9ff",
-          "success": "#a3cb00",
-          "warning": "#ff9d00",
-          "error": "#c10034",
+
+          "primary": "#e500c2",
+          "secondary": "#00f100",
+          "accent": "#00e500",
+          "neutral": "#161707",
+          "base-100": "#242424",
+          "info": "#00b0d3",
+          "success": "#669500",
+          "warning": "#ff7700",
+          "error": "#f7526c",
         },
       },
     ],
