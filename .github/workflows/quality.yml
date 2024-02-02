@@ -3,6 +3,8 @@ run-name: quality
 on:
   workflow_call:
   push:
+    branches:
+      - '*'
 
 jobs:
   codesniffer:
