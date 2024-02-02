@@ -26,7 +26,7 @@
   },
   "sync":
   {
-    "source": "",
+    "source": "./",
     "destination": "",
     "log_file_dest": "/.deploy/files.log",
     "ignore_list":
