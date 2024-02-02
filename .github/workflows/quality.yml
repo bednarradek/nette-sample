@@ -1,6 +1,8 @@
 name: Quality
 run-name: quality
-on: [push]
+on:
+  workflow_call:
+  push:
 
 jobs:
   codesniffer:
